@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/styles/layout.css">
+</head>
+<body>
+
+<form action="/submitform" method="post">
+    <h3>Joke Selection</h3>
+
+    <label for="catselect">Select Joke Category:</label>
+        <select name="catselect" id="catselect" onchange="toggleCustomOptions()">
+            <option value="Any">Any</option>
+            <option value="Custom">Custom</option>
+        </select>
+
+        <div id="customCategories">
+            <label>Choose Categories:</label>
+            <div class="category-options">
+                <label><input type="checkbox" name="cj" value="Programming"> Programming</label>
+                <label><input type="checkbox" name="cj" value="Misc"> Misc</label>
+                <label><input type="checkbox" name="cj" value="Dark"> Dark</label>
+                <label><input type="checkbox" name="cj" value="Pun"> Pun</label>
+                <label><input type="checkbox" name="cj" value="Spooky"> Spooky</label>
+                <label><input type="checkbox" name="cj" value="Christmas"> Christmas</label>
+            </div>
+        </div>
+        <hr>
+
+    <label for="language">language</label>
+    <select name="language">
+        <option value="en" selected>english</option>
+        <option value="de">german</option>
+        <option value="cs">czech</option>
+        <option value="es">spanish</option>
+        <option value="fr">french</option>
+        <option value="pt">portugese</option>
+    </select>
+    <hr>
+    Select flags to blacklist <strong>(optional)</strong>
+        <input type="checkbox" name="blacklist" value="nsfw">
+        <label for="nsfw">nsfw</label>
+
+        <input type="checkbox" name="blacklist" value="religious">
+        <label for="religious">religious</label>
+
+        <input type="checkbox" name="blacklist" value="political">
+        <label for="political">political</label>
+        
+        <input type="checkbox" name="blacklist" value="racist">
+        <label for="racist">racist</label>
+
+        <input type="checkbox" name="blacklist" value="sexist">
+        <label for="sexist">sexist</label>
+
+        <input type="checkbox" name="blacklist" value="explicit">
+        <label for="explicit">explicit</label>
+
+        <hr>
+        Select response format
+
+        <input type="radio" name="responseformat" value="json" checked="checked">
+        <label for="json">default(json)</label>
+
+        <input type="radio" name="responseformat" value="xml">
+        <label for="xml">xml</label>
+
+        <input type="radio" name="responseformat" value="yaml">
+        <label for="yaml">yaml</label>
+
+        <input type="radio" name="responseformat" value="txt">
+        <label for="plaintext">plaintext</label>
+        
+        <hr>
+        Select at least one joke type
+        <input type="checkbox" name="joketype" value="single" checked="checked">
+        <label for="single">Single</label>
+
+        <input type="checkbox" name="joketype" value="twopart" checked="checked">
+        <label for="twopart">Twopart</label>
+
+        <hr>
+        Search for a joke that contains this search string <strong>(optional)</strong>
+        <input type="text" name="search">
+
+        <hr>
+        Amount of jokes <strong>(required)</strong>
+        <input type="number" name="amount" min="1" max="10" step="1">
+
+        <hr>
+        <input type="checkbox" name="safe" value="safe-mode">
+        <label for="safe">Safe mode</label>
+
+        
+        <h5><input type="submit" value="submit"></h5>
+
+</form>
+
+    <h4>jokes:</h4>
+    <% if(locals.joke_p1) { %>
+        <%= locals.joke_p1 %>
+        <br>
+        <%= locals.joke_p2 %>
+        <% } %>
+        <% if(locals.joke) {%>
+            <%= locals.joke %>
+        <% } %>
+
+        <% if (locals.jokes) { %>
+            <% for (let i = 0; i < locals.jokes.length; i++) { %>
+                <% if (locals.jokes[i].setup) { %>
+                 <p>
+                   <%= locals.jokes[i].setup %>
+                   <%= locals.jokes[i].delivery %>
+                </p>
+                <% } else { %> 
+                <p>
+                   <%= locals.jokes[i].joke %>
+                </p>
+                <% } %>
+            <% } %>
+        <% } %>
+        
+    
+    
+
+
+
+
+    <footer>
+        <p>Total of 120 requests can be sent per minute.</p>
+        <p>When submitting jokes, budget is only 5 requests per minute.</p>
+    </footer>
+
+    <script>
+        function toggleCustomOptions() {
+            const categorySelect = document.getElementById("catselect");
+            const customOptions = document.getElementById("customCategories");
+
+            if (categorySelect.value === "Custom") {
+                // show checkboxes
+                customOptions.style.display = "block"; 
+            } else {
+                // hide checkboxes
+                customOptions.style.display = "none";  
+                // uncheck all checkboxes when switching back to Any
+                document.querySelectorAll('#customCategories input[type="checkbox"]').forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+            }
+        }
+        document.addEventListener("DOMContentLoaded", toggleCustomOptions);
+    </script>
+
+</body>
+</html>

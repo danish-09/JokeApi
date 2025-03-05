@@ -31,9 +31,8 @@ This project is open-source and available under the MIT License.
 This project uses the [JokeAPI](https://sv443.net/jokeapi/v2/) to fetch jokes.  
 For more details on available endpoints and data structure, visit the API documentation.
 
-
 ## Future improvements
-- adding the logic for handling ID Range(checkout documentation of API)
+- Adding the logic for handling ID Range (checkout documentation of API)
 - Improving the style of the frontend
   
 ## Contributions
@@ -45,3 +44,10 @@ For more details on available endpoints and data structure, visit the API docume
 - Push the changes to your forked repository
   `git push origin feature-branch`
 - Open a pull request.
+
+## Usage
+ - Clone the repository
+ - Navigate to project directory
+ - Install dependencies using `npm install`
+ - Start server using `node index.js`
+ - Open browser and navigate to `http://localhost:3000/`
